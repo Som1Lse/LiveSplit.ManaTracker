@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
-using LiveSplit;
 using LiveSplit.UI;
 using LiveSplit.Model;
 using LiveSplit.Options;
@@ -54,7 +49,11 @@ namespace LiveSplit.ManaTracker {
 
         public Font p_HeaderTextFont { get; set; }
         public string p_HeaderTextFontName { get {
-            return String.Format("{0} {1}",p_HeaderTextFont.FontFamily.Name,p_HeaderTextFont.Style);
+            if(p_HeaderTextFont == null){
+                return "";
+            }else{
+                return SettingsHelper.FormatFont(p_HeaderTextFont);
+            }
         } }
         
         public Color p_HeaderBackgroundColor { get; set; }
@@ -131,7 +130,14 @@ namespace LiveSplit.ManaTracker {
         
             p_HeaderBackgroundColor = Color.Transparent;
             p_HeaderTextColor = Color.White;
-            p_HeaderTextFont = State.LayoutSettings.TextFont;
+            
+            if(State.LayoutSettings == null){
+                p_HeaderTextFont = null;
+            }else{
+                p_HeaderTextFont = State.LayoutSettings.TextFont;
+            }
+
+            HeaderTextFontName.Text = p_HeaderTextFontName;
 
             p_GraphBackgroundColor = Color.Transparent;
             p_GraphManaColor = Color.FromArgb(90,182,239);
@@ -213,8 +219,6 @@ namespace LiveSplit.ManaTracker {
             GraphIconsOnBottom.DataBindings.Add("Checked",this,"p_GraphIconsOnBottom",false,DataSourceUpdateMode.OnPropertyChanged);
             GraphBloodOxHeart.DataBindings.Add("Checked",this,"p_GraphBloodOxHeart",false,DataSourceUpdateMode.OnPropertyChanged);
             
-            HeaderTextFontName.DataBindings.Add("Text",this,"p_HeaderTextFontName",false,DataSourceUpdateMode.OnPropertyChanged);
-            
             HeaderText.DataBindings.Add("Text",this,"p_HeaderText",false,DataSourceUpdateMode.OnPropertyChanged);
             HeaderManaText.DataBindings.Add("Text",this,"p_HeaderManaText",false,DataSourceUpdateMode.OnPropertyChanged);
             HeaderRegenText.DataBindings.Add("Text",this,"p_HeaderRegenText",false,DataSourceUpdateMode.OnPropertyChanged);
@@ -236,6 +240,8 @@ namespace LiveSplit.ManaTracker {
             GraphBlinkLineColor.DataBindings.Add("BackColor",this,"p_GraphBlinkLineColor",false,DataSourceUpdateMode.OnPropertyChanged);
             GraphLoadLineColor.DataBindings.Add("BackColor",this,"p_GraphLoadLineColor",false,DataSourceUpdateMode.OnPropertyChanged);
             GraphSplitLineColor.DataBindings.Add("BackColor",this,"p_GraphSplitLineColor",false,DataSourceUpdateMode.OnPropertyChanged);
+
+            UpdateEnabledControls();
         }
             
         public void SetLayoutMode(LayoutMode Mode){
@@ -286,8 +292,13 @@ namespace LiveSplit.ManaTracker {
             SettingsHelper.ColorButtonClick((Button)Sender,this);
         }
 
-        private void ChooseFontClick(object sender,EventArgs e) {
-            p_HeaderTextFont = SettingsHelper.ChooseFont(this,p_HeaderTextFont,7,20);
+        private void ChooseFontClick(object sender,EventArgs e){
+            var Dialog = SettingsHelper.GetFontDialog(p_HeaderTextFont,7,20);
+
+            Dialog.FontChanged += (s, ev) => p_HeaderTextFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
+            Dialog.ShowDialog(this);
+
+            HeaderTextFontName.Text = p_HeaderTextFontName;
         }
 
         private void ImageButtonClick(object Sender,EventArgs e){

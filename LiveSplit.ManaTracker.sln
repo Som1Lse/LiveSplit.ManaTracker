@@ -1,10 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveSplit.ManaTracker", "LiveSplit.ManaTracker\LiveSplit.ManaTracker.csproj", "{634FA633-B256-45D2-8FA2-2D26D97B3019}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +14,8 @@ Global
 		{634FA633-B256-45D2-8FA2-2D26D97B3019}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{634FA633-B256-45D2-8FA2-2D26D97B3019}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{634FA633-B256-45D2-8FA2-2D26D97B3019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCC0D166-2398-4F6E-94AD-3FFFACBF92DC}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{FCC0D166-2398-4F6E-94AD-3FFFACBF92DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

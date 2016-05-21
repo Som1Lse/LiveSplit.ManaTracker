@@ -10,7 +10,6 @@ using System.Diagnostics;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
 using LiveSplit.Model;
-using LiveSplit.TimeFormatters;
 
 namespace LiveSplit.ManaTracker {
 
@@ -65,64 +64,64 @@ public class ManaTrackerComponent:IComponent {
     public Control GetSettingsControl(LayoutMode Mode){ Settings.SetLayoutMode(Mode); return Settings; }
     public XmlNode GetSettings(XmlDocument Document){
         var Element = Document.CreateElement("Settings");
+            
+        SettingsHelper.CreateSetting(Document,Element,"Version","2.0.0");
 
-        Element.AppendChild(SettingsHelper.ToElement(Document,"Version","1.0.0.0"));
+        SettingsHelper.CreateSetting(Document,Element,"HeaderShow",Settings.p_HeaderShow);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderManaShow",Settings.p_HeaderManaShow);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderRegenShow",Settings.p_HeaderRegenShow);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderPotionsShow",Settings.p_HeaderPotionsShow);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderTextColorEnabled",Settings.p_HeaderTextColorEnabled);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderTextFontEnabled",Settings.p_HeaderTextFontEnabled);
 
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderShow",Settings.p_HeaderShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderManaShow",Settings.p_HeaderManaShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderRegenShow",Settings.p_HeaderRegenShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderPotionsShow",Settings.p_HeaderPotionsShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderTextColorEnabled",Settings.p_HeaderTextColorEnabled));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderTextFontEnabled",Settings.p_HeaderTextFontEnabled));
+        SettingsHelper.CreateSetting(Document,Element,"GraphShow",Settings.p_GraphShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphTimespanEnabled",Settings.p_GraphTimespanEnabled);
+        SettingsHelper.CreateSetting(Document,Element,"GraphManaShow",Settings.p_GraphManaShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphRegenShow",Settings.p_GraphRegenShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphDrinkLineShow",Settings.p_GraphDrinkLineShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphDrinkImageShow",Settings.p_GraphDrinkImageShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphPickupLineShow",Settings.p_GraphPickupLineShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphPickupImageShow",Settings.p_GraphPickupImageShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphBlinkLineShow",Settings.p_GraphBlinkLineShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphBlinkImageShow",Settings.p_GraphBlinkImageShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphLoadLineShow",Settings.p_GraphLoadLineShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphLoadImageShow",Settings.p_GraphLoadImageShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphSplitLineShow",Settings.p_GraphSplitLineShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphSplitImageShow",Settings.p_GraphSplitImageShow);
+        SettingsHelper.CreateSetting(Document,Element,"GraphFlip",Settings.p_GraphFlip);
+        SettingsHelper.CreateSetting(Document,Element,"GraphIconsOnBottom",Settings.p_GraphIconsOnBottom);
+        SettingsHelper.CreateSetting(Document,Element,"GraphBloodOxHeart",Settings.p_GraphBloodOxHeart);
 
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphShow",Settings.p_GraphShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphTimespanEnabled",Settings.p_GraphTimespanEnabled));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphManaShow",Settings.p_GraphManaShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphRegenShow",Settings.p_GraphRegenShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphDrinkLineShow",Settings.p_GraphDrinkLineShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphDrinkImageShow",Settings.p_GraphDrinkImageShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphPickupLineShow",Settings.p_GraphPickupLineShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphPickupImageShow",Settings.p_GraphPickupImageShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphBlinkLineShow",Settings.p_GraphBlinkLineShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphBlinkImageShow",Settings.p_GraphBlinkImageShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphLoadLineShow",Settings.p_GraphLoadLineShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphLoadImageShow",Settings.p_GraphLoadImageShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphSplitLineShow",Settings.p_GraphSplitLineShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphSplitImageShow",Settings.p_GraphSplitImageShow));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphFlip",Settings.p_GraphFlip));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphIconsOnBottom",Settings.p_GraphIconsOnBottom));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphBloodOxHeart",Settings.p_GraphBloodOxHeart));
-
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderText",Settings.p_HeaderText));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderManaText",Settings.p_HeaderManaText));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderRegenText",Settings.p_HeaderRegenText));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"HeaderPotionsText",Settings.p_HeaderPotionsText));
+        SettingsHelper.CreateSetting(Document,Element,"HeaderText",Settings.p_HeaderText);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderManaText",Settings.p_HeaderManaText);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderRegenText",Settings.p_HeaderRegenText);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderPotionsText",Settings.p_HeaderPotionsText);
         
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphWidth",Settings.p_GraphWidth));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphHeight",Settings.p_GraphHeight));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphTimespan",Settings.p_GraphTimespan));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphIconPadding",Settings.p_GraphIconPadding));
-        Element.AppendChild(SettingsHelper.ToElement(Document,"GraphLineWidth",Settings.p_GraphLineWidth));
+        SettingsHelper.CreateSetting(Document,Element,"GraphWidth",Settings.p_GraphWidth);
+        SettingsHelper.CreateSetting(Document,Element,"GraphHeight",Settings.p_GraphHeight);
+        SettingsHelper.CreateSetting(Document,Element,"GraphTimespan",Settings.p_GraphTimespan);
+        SettingsHelper.CreateSetting(Document,Element,"GraphIconPadding",Settings.p_GraphIconPadding);
+        SettingsHelper.CreateSetting(Document,Element,"GraphLineWidth",Settings.p_GraphLineWidth);
 
-        Element.AppendChild(SettingsHelper.CreateFontElement(Document,"HeaderTextFont",Settings.p_HeaderTextFont));
+        SettingsHelper.CreateSetting(Document,Element,"HeaderTextFont",Settings.p_HeaderTextFont);
 
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_HeaderBackgroundColor,"HeaderBackgroundColor"));
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_HeaderTextColor,"HeaderTextColor"));
+        SettingsHelper.CreateSetting(Document,Element,"HeaderBackgroundColor",Settings.p_HeaderBackgroundColor);
+        SettingsHelper.CreateSetting(Document,Element,"HeaderTextColor",Settings.p_HeaderTextColor);
 
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_GraphBackgroundColor,"GraphBackgroundColor"));
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_GraphManaColor,"GraphManaColor"));
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_GraphRegenColor,"GraphRegenColor"));
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_GraphDrinkLineColor,"GraphDrinkLineColor"));
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_GraphPickupLineColor,"GraphPickupLineColor"));
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_GraphBlinkLineColor,"GraphBlinkLineColor"));
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_GraphLoadLineColor,"GraphLoadLineColor"));
-        Element.AppendChild(SettingsHelper.ToElement(Document,Settings.p_GraphSplitLineColor,"GraphSplitLineColor"));
+        SettingsHelper.CreateSetting(Document,Element,"GraphBackgroundColor",Settings.p_GraphBackgroundColor);
+        SettingsHelper.CreateSetting(Document,Element,"GraphManaColor",Settings.p_GraphManaColor);
+        SettingsHelper.CreateSetting(Document,Element,"GraphRegenColor",Settings.p_GraphRegenColor);
+        SettingsHelper.CreateSetting(Document,Element,"GraphDrinkLineColor",Settings.p_GraphDrinkLineColor);
+        SettingsHelper.CreateSetting(Document,Element,"GraphPickupLineColor",Settings.p_GraphPickupLineColor);
+        SettingsHelper.CreateSetting(Document,Element,"GraphBlinkLineColor",Settings.p_GraphBlinkLineColor);
+        SettingsHelper.CreateSetting(Document,Element,"GraphLoadLineColor",Settings.p_GraphLoadLineColor);
+        SettingsHelper.CreateSetting(Document,Element,"GraphSplitLineColor",Settings.p_GraphSplitLineColor);
 
-        Element.AppendChild(SettingsHelper.CreateImageElement(Document,"GraphDrinkImage",Settings.p_GraphDrinkImage));
-        Element.AppendChild(SettingsHelper.CreateImageElement(Document,"GraphPickupImage",Settings.p_GraphPickupImage));
-        Element.AppendChild(SettingsHelper.CreateImageElement(Document,"GraphBlinkImage",Settings.p_GraphBlinkImage));
-        Element.AppendChild(SettingsHelper.CreateImageElement(Document,"GraphLoadImage",Settings.p_GraphLoadImage));
-        Element.AppendChild(SettingsHelper.CreateImageElement(Document,"GraphSplitImage",Settings.p_GraphSplitImage));
+        SettingsHelper.CreateSetting(Document,Element,"GraphDrinkImage",Settings.p_GraphDrinkImage);
+        SettingsHelper.CreateSetting(Document,Element,"GraphPickupImage",Settings.p_GraphPickupImage);
+        SettingsHelper.CreateSetting(Document,Element,"GraphBlinkImage",Settings.p_GraphBlinkImage);
+        SettingsHelper.CreateSetting(Document,Element,"GraphLoadImage",Settings.p_GraphLoadImage);
+        SettingsHelper.CreateSetting(Document,Element,"GraphSplitImage",Settings.p_GraphSplitImage);
 
         return Element;
     }
